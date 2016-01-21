@@ -38,7 +38,7 @@ public class MainApp extends Application {
      * */
 	private ObservableList<Person> personData  =  FXCollections.observableArrayList();	
 	/**
-	 * Inner class to wrppers all function for FXML working
+	 * Inner class to wrapper all function for FXML working
 	 * create loader and usages  
 	 */
 	private class WrapofFXmlLoader {

@@ -82,8 +82,9 @@ public class RootLayoutController implements FXmlControler{
 	}
 
 	/**
-     * Saves the file to the person file that is currently open. If there is no
-     * open file, the "save as" dialog is shown.
+     * Saves the file to the person file that is currently open. 
+     * If there is no open file, the "save as" dialog is shown.
+     * 
      */
 	@FXML
 	public void handleSaveClick() {
