@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="290.0" prefWidth="500.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="freeman.buyn.timecraft.view.EditPersonDialogController">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" styleClass="background" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <Label prefHeight="20.0" prefWidth="200.0" text="Person Details" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+            <GridPane layoutX="4.0" layoutY="30.0" prefHeight="200.0" prefWidth="290.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="30.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="123.0" styleClass="background" text="First Name" />
+                  <Label text="Last Name" GridPane.rowIndex="1" />
+                  <Label text="Street" GridPane.rowIndex="2" />
+                  <Label text="Postal Code" GridPane.rowIndex="3" />
+                  <Label text="City" GridPane.rowIndex="4" />
+                  <Label text="Birth Day" GridPane.rowIndex="5" />
+                  <TextField fx:id="firstNameField" GridPane.columnIndex="1" />
+                  <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="streetField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="postalCodeField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="cityField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="birthdayField" GridPane.columnIndex="1" GridPane.rowIndex="5" />                 
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="122.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="377.0" minWidth="10.0" prefWidth="358.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+            </GridPane>
+            <HBox alignment="BOTTOM_RIGHT" layoutX="228.0" layoutY="259.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="15.0">
+               <children>
+                  <Button layoutX="228.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleApplyClick" text="Aplly" />
+                  <Button layoutX="287.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleOkClick" text="Ok" />
+                  <Button layoutX="345.0" layoutY="259.0" mnemonicParsing="false" onAction="#handleCancelClick" text="Cancel" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
