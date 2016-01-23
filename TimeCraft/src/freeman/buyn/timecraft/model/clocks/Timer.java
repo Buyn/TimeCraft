@@ -1,25 +1,31 @@
-package freeman.buyn.timecraft.util;
+/**
+ * 
+ */
+package freeman.buyn.timecraft.model.clocks;
 
 import java.text.SimpleDateFormat;
 
 /**
- * Created by BuYn on 12.12.2014.
+ * @author BuYn
+ *
  */
 public class Timer {
-    //Constants
+    //Public Constants
     public static final int SEKUNDS = 1000;
     public static final int MINUTS = SEKUNDS * 60;
     public static final int HOURS = MINUTS * 60;
     public static final int UA = HOURS * 2;
     public static final int DEFAULT_ALARM = 9;
-    //INICEALISATION
+    //Private Integers
     private long    lStart = 0;
     private long    lSet   = 0;
     private long    lPause = 0;
     private int     iAlarmSet = 0;
     private SimpleDateFormat sdf;
-//    End of Intedger Block
-// Bagen of Constructors block
+	private boolean pause;
+	/*
+	 * Initialization Methods Block
+	 */
     public Timer(){
         iAlarmSet = DEFAULT_ALARM;
         sdf = new SimpleDateFormat("HH:mm:ss");
@@ -33,16 +39,18 @@ public class Timer {
         lSet = lStart + (iMinuts * MINUTS);
         sdf = new SimpleDateFormat("HH:mm:ss");
     }
-    //    end of Constructors block
-//    Bagen of Metods block
-//    Private Metods
+	/*
+	 * Private Methods Block
+	 */
     private String formatLong(long lConvert){
         return sdf.format(lConvert - UA);
     }
     private long getNow(){
         return System.currentTimeMillis();
     }
-//  Public  Metods
+	/*
+	 * Public Methods Block
+	 */
     public String getFormatTimeLeft(){
         return formatLong(getTimeLeft());
     }
@@ -63,12 +71,20 @@ public class Timer {
     public void setPause(){
         lPause = getNow() - lStart + lPause;
         lStart = getNow();
+        pause = true;
     }
     public void unPause(){
         lStart = getNow();
+        pause =false;
     }
-//    End of Metods block
-//  seters and geters
+    public void trigerPause() {
+		if (pause)unPause();
+		else setPause();
+    }
+		
+	/*
+	 * Setter/getter block
+	 */
     public void setToZeroStart(){
         lStart = getNow();
         lPause = 0;
@@ -77,7 +93,6 @@ public class Timer {
         lSet = getNow() + (iAlarmSet * MINUTS);
     }
     public void setAlarm(int iMinuts) {
-//        iAlarmSet = iMinuts;
         lSet = getNow() + (iMinuts * MINUTS);
     }
     public void setStart(long dStart) {
@@ -101,5 +116,5 @@ public class Timer {
     public long getStart() {
         return lStart;
     }
-
 }
+
