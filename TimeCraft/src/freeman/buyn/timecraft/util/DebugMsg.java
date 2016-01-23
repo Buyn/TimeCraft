@@ -74,20 +74,28 @@ public class DebugMsg {
 	
 	/**
 	 * Exception loging and dialog show 
+	 * using LocalizedMessage for string in debugExeption  
 	 * @param exception to Show
 	 */
 	public static void debugExeption(Exception exception) {
+		debugExeption(exception.getLocalizedMessage(), exception);
+	}
+	
+	/**
+	 * Exception loging and dialog show 
+	 * @param exception to Show
+	 */
+	public static void debugExeption(String msgError, Exception exception) {
 		exception.printStackTrace();
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Exception!!!");
-		alert.setHeaderText(exception.getLocalizedMessage());
+		alert.setHeaderText(msgError);
 		alert.setContentText(exception.getMessage());
 		// Create expandable Exception.
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 		exception.printStackTrace(pw);
 		String exceptionText = sw.toString();
-		Label label = new Label("The exception stacktrace was:");
 
 		TextArea textArea = new TextArea(exceptionText);
 		textArea.setEditable(false);
@@ -97,6 +105,7 @@ public class DebugMsg {
 		GridPane.setVgrow(textArea, Priority.ALWAYS);
 		GridPane.setHgrow(textArea, Priority.ALWAYS);
 
+		Label label = new Label("The exception stacktrace was:");
 		GridPane expContent = new GridPane();
 		expContent.setMaxWidth(Double.MAX_VALUE);
 		expContent.add(label, 0, 0);
