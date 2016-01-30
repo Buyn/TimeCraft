@@ -4,17 +4,21 @@ import static freeman.buyn.timecraft.util.DebugMsg.debugInfo;
 import static freeman.buyn.timecraft.util.DebugMsg.debugLog;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.prefs.Preferences;
 import freeman.buyn.timecraft.model.FXmlControler;
 import freeman.buyn.timecraft.model.JAXBWrapper;
 import freeman.buyn.timecraft.model.Person;
+import freeman.buyn.timecraft.view.AlarmStopwatchController;
 import freeman.buyn.timecraft.view.BirthdayStatisticsController;
 import freeman.buyn.timecraft.view.EditPersonDialogController;
 import freeman.buyn.timecraft.view.PersonOverviewController;
 import freeman.buyn.timecraft.view.RootLayoutController;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -23,20 +27,22 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 
 public class MainApp extends Application {
 	public static final String TITLE = "TimeCraft";
 	public static final int DEBUGMODE = 40;
-	//Registri Keys
+	//Registry Keys
 	public static final String KEY_PATH = "filePath";
 	
 	private Stage primaryStage;
-	private BorderPane rootLayout;
+	private BorderPane rootLayout;  
+	//TODO create arreylist with interface CloseOnExit       20:05:30 24 џэт. 2016 у. by BuYn         
     /** 
      * The data as an observable list of Persons.     
      * */
-	private ObservableList<Person> personData  =  FXCollections.observableArrayList();	
+	private ObservableList<Person> activitiData  =  FXCollections.observableArrayList();	
 	/**
 	 * Inner class to wrapper all function for FXML working
 	 * create loader and usages  
@@ -51,6 +57,7 @@ public class MainApp extends Application {
 		
 		private FXmlControler loadFXmlControler() {
 			try {return  loader.getController();		} catch (Exception e) {	
+																	e.getCause().printStackTrace();
 																	e.printStackTrace();
 																	return null;
 			}
@@ -60,6 +67,7 @@ public class MainApp extends Application {
 		*/
 		private Node loadFXML() {
 			try{return 	loader.load();			}catch(IOException e){
+															e.getCause().printStackTrace();
 															System.out.println(e);
 															return null;
 			}
@@ -75,16 +83,9 @@ public class MainApp extends Application {
 	public MainApp() {
 		freeman.buyn.timecraft.util.DebugMsg.setDebugMode(DEBUGMODE);
 		debugInfo("begin MainApp Constractor");
-		personData.add(new Person("Buyn", "Max"));
-		personData.add(new Person("Hans", "Muster"));
-		personData.add(new Person("Ruth", "Mueller"));
-		personData.add(new Person("Heinz", "Kurz"));
-		personData.add(new Person("Cornelia", "Meier"));
-		personData.add(new Person("Werner", "Meyer"));
-		personData.add(new Person("Lydia", "Kunz"));
-		personData.add(new Person("Anna", "Best"));
-		personData.add(new Person("Stefan", "Meier"));
-		personData.add(new Person("Martin", "Mueller"));
+		activitiData.add(new Person("Test", "Avtiviyi"));
+		activitiData.add(new Person("Select and", "press Delete"));
+		activitiData.add(new Person("Or Press New", "For new activiti"));
 	}
 	public static void main(String[] args) {	
 		launch(args);
@@ -93,7 +94,14 @@ public class MainApp extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle(TITLE);
-		this.primaryStage.getIcons().add(new Image("file:resources/images/Address_Book_32.PNG"));	
+		this.primaryStage.getIcons().add(new Image("file:resources/images/B_Time_Lord_Seal.PNG"));
+		this.primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {			
+			@Override
+			public void handle(WindowEvent event) {
+				// TODO handle save  bakup method stub Auto-generated BuYn29 џэт. 2016 у.1:25:54 				
+				Platform.exit();
+				System.exit(0);}
+		});
 		//Init Main Window
 		initRootLayout();
 		showPersonOverview();
@@ -174,7 +182,7 @@ public class MainApp extends Application {
 		//Controller block
 		BirthdayStatisticsController controlerEditDialog = (BirthdayStatisticsController)loaderFXML.loadFXmlControler();
 		// Give the controller access to the  Person 
-		controlerEditDialog.setPersonData(personData);
+		controlerEditDialog.setPersonData(activitiData);
 		// Show the dialog and wait until the user closes it
 		statistikDialog.show();
 	}
@@ -222,6 +230,34 @@ public class MainApp extends Application {
 	public void setAppTitle(String newTitle) {
 		primaryStage.setTitle(TITLE + " : " + newTitle); 
 	}
+		/**
+		 * load FXML and Shows AlarmStopWatch dialog for activiti
+		 * @param selectedActiviti
+		 */
+		public void runAlarmStopWatch(Person selectedActiviti) {
+		// Create the AlarmStopWatch dialog Stage.
+		Stage alarmStopWatchDialog =new Stage();
+		alarmStopWatchDialog.setTitle("AlarmStopWatch for : " + selectedActiviti.getLastName() + 
+				" - " + selectedActiviti.getFirstName());
+		alarmStopWatchDialog.initModality(Modality.NONE);
+		WrapofFXmlLoader loaderFXML = new WrapofFXmlLoader("view/AlarmStopwatch.fxml");
+		alarmStopWatchDialog.setScene(new Scene((AnchorPane)loaderFXML.loadFXML()));
+		alarmStopWatchDialog.getIcons().add(new Image("file:resources/images/gear-stopwatch-time-speed.PNG"));
+		//Controller block
+		AlarmStopwatchController alarmStopWatchControler = (AlarmStopwatchController)loaderFXML.loadFXmlControler();
+		// Give the controller access to the  Person 
+		alarmStopWatchControler.setActivitiData(selectedActiviti);
+		// Show the dialog
+		alarmStopWatchDialog.setOnCloseRequest(new EventHandler<WindowEvent>() {		
+			@Override
+			public void handle(WindowEvent event) {
+				alarmStopWatchControler.shutdown();
+				// TODO handle in Class on open threads method stub Auto-generated BuYn29 џэт. 2016 у.1:25:54 
+			}
+		});
+		alarmStopWatchDialog.show();
+		// TODO runAlarmStopWatch add close and save with MainApp BuYn24 џэт. 2016 у.8:47:34 
+	}
 	/**
 	 * Update the stage title to Null.
 	 */
@@ -236,7 +272,8 @@ public class MainApp extends Application {
 		return primaryStage;
 	}
 	public ObservableList<Person> getPersonData() {		
-		return personData;
+		return activitiData;
 	}
+
 
 }

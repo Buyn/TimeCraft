@@ -6,78 +6,63 @@ package freeman.buyn.timecraft.model.clocks;
 import java.text.SimpleDateFormat;
 
 /**
+ * main class to watch for time
+ * and get time that gone from start in milliseconds and Format
  * @author BuYn
  *
  */
 public class Timer {
     //Public Constants
-    public static final int SEKUNDS = 1000;
-    public static final int MINUTS = SEKUNDS * 60;
+    public static final int SECUNDS = 1000;
+    public static final int MINUTS = SECUNDS * 60;
     public static final int HOURS = MINUTS * 60;
     public static final int UA = HOURS * 2;
-    public static final int DEFAULT_ALARM = 9;
+    //TODO create UA from system settings it must work on any system       3:09:14 28 џэт. 2016 у. by BuYn
+    public static final String SDF_FORMAT = "HH:mm:ss";
+
     //Private Integers
-    private long    lStart = 0;
-    private long    lSet   = 0;
-    private long    lPause = 0;
-    private int     iAlarmSet = 0;
+    private long    lStartTime = 0;
+    private long    lPauseTime = 0;
     private SimpleDateFormat sdf;
-	private boolean pause;
+	protected boolean pause = false;
 	/*
 	 * Initialization Methods Block
 	 */
     public Timer(){
-        iAlarmSet = DEFAULT_ALARM;
-        sdf = new SimpleDateFormat("HH:mm:ss");
-        lStart = System.currentTimeMillis();
-        long lMinuts =   MINUTS *9;
-        lSet = lStart + (DEFAULT_ALARM * MINUTS);
-    }
-    public Timer(int iMinuts) {
-        iAlarmSet = iMinuts;
-        lStart = System.currentTimeMillis();
-        lSet = lStart + (iMinuts * MINUTS);
-        sdf = new SimpleDateFormat("HH:mm:ss");
+        sdf = new SimpleDateFormat(SDF_FORMAT);
+        lStartTime = System.currentTimeMillis();
     }
 	/*
 	 * Private Methods Block
 	 */
-    private String formatLong(long lConvert){
+    final protected String formatLong(long lConvert){
         return sdf.format(lConvert - UA);
     }
-    private long getNow(){
+    final protected long getNow(){
         return System.currentTimeMillis();
     }
 	/*
 	 * Public Methods Block
 	 */
-    public String getFormatTimeLeft(){
-        return formatLong(getTimeLeft());
-    }
-    public long getTimeLeft(){
-        return lSet - getNow();
-    }
-    public long getSekundsLeft(){
-        return (lSet - getNow())/SEKUNDS;
-    }
-    public String getFormatDeltaTime(){
+
+    final public String getFormatDeltaTime(){
         return formatLong(getDeltaTime());}
-    public long getDeltaTime() {
-        return getNow() - lStart + lPause;
+    final public long getDeltaTime() {
+        return getNow() + lPauseTime - lStartTime ;
     }
-    public String getFormatedTime(){
+    final public String getFormatedTime(){
         return formatLong(getNow());
     }
-    public void setPause(){
-        lPause = getNow() - lStart + lPause;
-        lStart = getNow();
+    final public void setPause(){
+        lPauseTime = getNow() + lPauseTime - lStartTime ;
+        lStartTime = getNow();
         pause = true;
     }
-    public void unPause(){
-        lStart = getNow();
+    final public void unPause(){
+        lStartTime = getNow();
         pause =false;
     }
-    public void trigerPause() {
+    final public void triggerPause() {
 		if (pause)unPause();
 		else setPause();
     }
@@ -85,36 +70,21 @@ public class Timer {
 	/*
 	 * Setter/getter block
 	 */
-    public void setToZeroStart(){
-        lStart = getNow();
-        lPause = 0;
+    final public void setStartToZero(){
+        lStartTime = getNow();
+        lPauseTime = 0;
+    } 
+    final public void setStart(long dStart) {
+        this.lStartTime = dStart;
     }
-    public void setAlarm() {
-        lSet = getNow() + (iAlarmSet * MINUTS);
+    final public void setPause(long lPause) {
+        this.lPauseTime = lPause;
     }
-    public void setAlarm(int iMinuts) {
-        lSet = getNow() + (iMinuts * MINUTS);
+    final public long getPause() {
+        return lPauseTime;
     }
-    public void setStart(long dStart) {
-        this.lStart = dStart;
-    }
-    public void setPause(long lPause) {
-        this.lPause = lPause;
-    }
-    public void setAlarmSet(int iAlarmSet) {
-        this.iAlarmSet = iAlarmSet;
-    }
-    public int getAlarmSet() {
-        return iAlarmSet;
-    }
-    public long getPause() {
-        return lPause;
-    }
-    public long getAlarm() {
-        return lSet;
-    }
-    public long getStart() {
-        return lStart;
+    final public long getStart() {
+        return lStartTime;
     }
 }
 

@@ -69,7 +69,7 @@
                   <HBox prefHeight="40.0" prefWidth="200.0" spacing="40.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                      <children>
                         <Label minHeight="45.0" prefWidth="150.0" styleClass="background" text="Activiti Details" />
-                        <Button defaultButton="true"  minWidth="100.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="300.0" text="START" />
+                        <Button defaultButton="true" minWidth="100.0" mnemonicParsing="false" onAction="#handleStartButton" prefHeight="45.0" prefWidth="300.0" text="START" />
                      </children>
                   </HBox>
                </children>

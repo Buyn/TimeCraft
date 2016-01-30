@@ -3,6 +3,8 @@
  */
 package freeman.buyn.timecraft.view;
 
+import static freeman.buyn.timecraft.util.DebugMsg.debugInfo;
+
 import freeman.buyn.timecraft.MainApp;
 import freeman.buyn.timecraft.model.FXmlControler;
 import freeman.buyn.timecraft.model.Person;
@@ -65,7 +67,7 @@ public class PersonOverviewController implements FXmlControler {
 		personTable.getSelectionModel().selectedItemProperty().addListener(
 				(observable, oldValue, newValue)->
 					showPersonDetails(newValue));
-		System.out.println("Initilaz POC End");
+		debugInfo("Info Massage :" + " Initialize PersonOverviewController End");
 	}	
 	/*
 	 * Methods Block
@@ -106,9 +108,7 @@ public class PersonOverviewController implements FXmlControler {
 		if (selectedPerson != null) {
 			if (mainApp.showPersonEditDialog(selectedPerson)) {
 				showPersonDetails(selectedPerson);
-			}else {
-				return;
-			}
+			}else 	return;
 			
 		}else {
 			Alert warning = new Alert(AlertType.WARNING);
@@ -152,6 +152,25 @@ public class PersonOverviewController implements FXmlControler {
 			alert.showAndWait();
 		}
 	}
+	/**
+	 * Called when the user clicks on the Start button.
+	 * 
+	 */
+	@FXML
+	public void handleStartButton() { 
+		Person selectedActiviti = personTable.getSelectionModel().getSelectedItem();
+		if (selectedActiviti != null) 
+			mainApp.runAlarmStopWatch(selectedActiviti);	
+		else {
+			Alert warning = new Alert(AlertType.WARNING);
+			warning.initOwner(mainApp.getPrimaryStage());
+	        warning.setTitle("No Selection");
+	        warning.setHeaderText("Activiti Not Selected");
+	        warning.setContentText("Please select a activiti in the table.");
+	        warning.showAndWait();
+		}
+	}
+
 	/**
      * Is called by the main application to give a reference back to itself.
      * Setim from FXML controler loader 

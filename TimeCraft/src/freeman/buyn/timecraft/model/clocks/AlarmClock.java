@@ -2,33 +2,33 @@
  * 
  */
 package freeman.buyn.timecraft.model.clocks;
+
 import freeman.buyn.timecraft.model.clocks.Alarm;
+import freeman.buyn.timecraft.view.AlarmStopwatchController;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 
 /**
+ * Runnable class is wrapper for use button and label of Alarm clock  mechanic 
+ * for AlarmStopwatchController class
  * @author BuYn
  *
  */
 public class AlarmClock extends Alarm implements Runnable{
+	private AlarmStopwatchController alarmStopwatchController;
 
 
 
 	/*
 	 * Initialization Methods Block
 	 */
-	
 	/**
-	 * 
+	 * @param alarmStopwatchController
 	 */
-	public AlarmClock() {
-		// TODO constructor AlarmClock stub Auto-generated BuYn23 џэт. 2016 у.23:50:47
-	}
-	
-	/**
-	 * @param iMinuts
-	 */
-	public AlarmClock(int iMinuts) {
-		super(iMinuts);
-		// TODO constructor AlarmClock stub Auto-generated BuYn23 џэт. 2016 у.23:50:47
+	public AlarmClock(AlarmStopwatchController alarmStopwatchController) {
+		super();
+		this.alarmStopwatchController = alarmStopwatchController;
 	}
 
 	/* (non-Javadoc)

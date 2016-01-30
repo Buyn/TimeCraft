@@ -86,6 +86,7 @@ public class DebugMsg {
 	 * @param exception to Show
 	 */
 	public static void debugExeption(String msgError, Exception exception) {
+		exception.getCause().printStackTrace();
 		exception.printStackTrace();
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Exception!!!");

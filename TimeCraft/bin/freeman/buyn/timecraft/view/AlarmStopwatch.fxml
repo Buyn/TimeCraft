@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="200.0" prefWidth="450.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="200.0" prefWidth="450.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="freeman.buyn.timecraft.view.AlarmStopwatchController">
    <children>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="307.0" text="Reset All" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-      <Button ellipsisString="&gt;&gt;" layoutX="253.0" layoutY="161.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="15.0" text="&gt;&gt;" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="1.0">
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleResetAllButton" prefHeight="50.0" prefWidth="307.0" text="Reset All" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Button ellipsisString="&gt;&gt;" layoutX="253.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleRighteExtendButton" prefHeight="30.0" prefWidth="15.0" text="&gt;&gt;" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="1.0">
          <font>
             <Font size="9.0" />
          </font></Button>
-      <Label layoutX="14.0" layoutY="64.0" prefHeight="39.0" prefWidth="216.0" text="Time:" AnchorPane.leftAnchor="10.0" />
-      <Label layoutX="14.0" layoutY="138.0" prefHeight="17.0" prefWidth="185.0" styleClass="background" text="Alarm" AnchorPane.leftAnchor="10.0" />
-      <ProgressBar layoutX="14.0" layoutY="113.0" prefHeight="18.0" prefWidth="272.0" progress="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-      <ProgressIndicator layoutX="230.0" layoutY="64.0" mouseTransparent="true" prefHeight="39.0" prefWidth="55.0" progress="0.51" AnchorPane.rightAnchor="5.0" />
+      <Label fx:id="timeLabel" layoutX="14.0" layoutY="64.0" prefHeight="39.0" prefWidth="216.0" text="Time:" AnchorPane.leftAnchor="10.0" />
+      <Label fx:id="alarmLabel" layoutX="14.0" layoutY="138.0" prefHeight="17.0" prefWidth="185.0" styleClass="background" text="Alarm" AnchorPane.leftAnchor="10.0" />
+      <ProgressBar fx:id="alrmProgressBar" layoutX="14.0" layoutY="113.0" prefHeight="18.0" prefWidth="272.0" progress="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <ProgressIndicator fx:id="timeProgressIndicator" layoutX="230.0" layoutY="64.0" mouseTransparent="true" prefHeight="39.0" prefWidth="55.0" AnchorPane.rightAnchor="5.0" />
       <HBox layoutX="7.0" layoutY="173.0" prefHeight="39.0" prefWidth="352.0" spacing="5.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="5.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Pause Seopwatch" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Stop Alarm">
+            <Button fx:id="timeButton" mnemonicParsing="false" onAction="#handleStopwatchButton" prefHeight="25.0" prefWidth="200.0" text="Pause Stopwatch" />
+            <Button fx:id="alarmButton" mnemonicParsing="false" onAction="#handleAlarmlButton" prefHeight="25.0" prefWidth="200.0" text="Stop Alarm">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
