@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat;
  */
 public class Timer {
     //Constants
-    public static final int SECUNDS = 1000;
-    public static final int MINUTS = SECUNDS * 60;
+    public static final int SECONDS = 1000;
+    public static final int MINUTS = SECONDS * 60;
     public static final int HOURS = MINUTS * 60;
     public static final int UA = HOURS * 2;
     public static final int DEFAULT_ALARM = 9;
@@ -50,7 +50,7 @@ public class Timer {
         return lSet - getNow();
     }
     public long getSekundsLeft(){
-        return (lSet - getNow())/SECUNDS;
+        return (lSet - getNow())/SECONDS;
     }
     public String getFormatDeltaTime(){
         return formatLong(getDeltaTime());}

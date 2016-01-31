@@ -18,7 +18,7 @@ public class Watch  implements Runnable {
         while (true) {
             if (!bPause) runUpdate();
             try {
-                Thread.sleep(Timer.SECUNDS);
+                Thread.sleep(Timer.SECONDS);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }

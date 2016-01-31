@@ -18,7 +18,7 @@ public class Alarm implements Runnable {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(Timer.SECUNDS);
+                Thread.sleep(Timer.SECONDS);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }

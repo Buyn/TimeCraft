@@ -38,12 +38,9 @@ public class AlarmStopwatchController implements FXmlControler{
 	@FXML
 	public Button alarmButton;
 	//global Integers
-	public Person selectedActivitiData;
-	
+	public Person selectedActivitiData;	
 	private Stopwatch stopwatch;
 	private AlarmClock alarmClock;
-	//Thread stopwatchThread ;
-
 
 	/*
 	 * Initialization Methods Block
@@ -60,9 +57,12 @@ public class AlarmStopwatchController implements FXmlControler{
 	public void initialize(){
 		alarmClock = new AlarmClock(this);   	
     	stopwatch = new Stopwatch(this);
-		Thread stopwatchThread = new Thread(stopwatch);
-        stopwatchThread.setDaemon(true);
+    	Thread stopwatchThread = new Thread(stopwatch);
+		Thread alarmClockThread = new Thread(alarmClock);
+		stopwatchThread.setDaemon(true);
+		alarmClockThread.setDaemon(true);
         stopwatchThread.start();
+        alarmClockThread.start();
 	}	
 	/*
 	 * Private Methods Block
@@ -73,12 +73,17 @@ public class AlarmStopwatchController implements FXmlControler{
 	 */
 	@FXML
 	public void handleResetAllButton() {
-		stopwatch.progressNow();
+		stopwatch.resetStopWatch();
+		alarmClock.resetAlarmClock();
+		stopwatch.unpauseStopWatch();
+		alarmClock.unpauseAlarmClock();
 		debugLog("log Massage :" + " handleResetAllButton");
 		// TODO hahdleResetAllButton in AlarmStopwatchController method stub Auto-generated BuYn24 џэт. 2016 у.7:31:56 
 	}
 	@FXML
 	public void handleRighteExtendButton() {
+		stopwatch.progressNow();
+		alarmClock.progressNow();
 		debugLog("log Massage :" + " handleRighteExtendButton");
 		// TODO handleRighteExtendButton in AlarmStopwatchController method stub Auto-generated BuYn24 џэт. 2016 у.7:37:41 
 	}
@@ -90,9 +95,9 @@ public class AlarmStopwatchController implements FXmlControler{
 	}
 	@FXML
 	public void handleAlarmlButton() {
-		
-		debugLog("log Massage :" + " handleAlarmlButton");
-		// TODO handleAlarmlButton in AlarmStopwatchController method stub Auto-generated BuYn24 џэт. 2016 у.7:37:52 
+		alarmClock.triggerAlarmClock();
+		debugLog("log Massage :" + " handleAlarmlButton");		
+		// TODO in handleAlarmlButton add save too beck up in AlarmStopwatchController method stub Auto-generated BuYn24 џэт. 2016 у.7:37:52 
 	}
 	public void shutdown() {
 		stopwatch.shutdown();

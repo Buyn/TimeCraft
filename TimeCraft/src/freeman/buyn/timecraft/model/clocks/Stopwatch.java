@@ -4,18 +4,10 @@
 package freeman.buyn.timecraft.model.clocks;
 
 import static freeman.buyn.timecraft.util.DebugMsg.debugLog;
-
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import freeman.buyn.timecraft.view.AlarmStopwatchController;
 import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyBooleanProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
-import javafx.concurrent.Worker.State;
 
 /**
  * Runnable class is wrapper for use button and label of stop watch mechanic 
@@ -120,7 +112,7 @@ public class Stopwatch extends Timer implements Runnable {
         while (!shutdown) {
            if (!pause) runUpdate();
            try {
-        	   Thread.sleep(Timer.SECUNDS);}catch (InterruptedException ex) {Thread.currentThread().interrupt();}
+        	   Thread.sleep(Timer.SECONDS);}catch (InterruptedException ex) {Thread.currentThread().interrupt();}
         }
         debugLog("shuting downs Stopwatch");
         labelTextTask.cancel(true);
@@ -180,21 +172,27 @@ public class Stopwatch extends Timer implements Runnable {
 	 */
 	public void resetStopWatch(){
     	setStartToZero();
+    	progressNow =0;
         runUpdate();
     }
+	/**
+	 * Set actual time and progress position 
+	 * say to Worker to stop waiting  
+	 */
 	public void runUpdate() {
 		labelTime = getFormatDeltaTime();
 		progressNow = progressNow();
-		debugLog("runUpdate" + progressNow);
         synchronized (labelTextIsChanged) {
         	labelTextIsChanged.set(true);
         	labelTextIsChanged.notifyAll();
 		}
-		// TODO updateAll in Stopwatch method stub Auto-generated BuYn25 џэт. 2016 у.4:22:30 
 	}
+	/**
+	 * Calculate new progress position
+	 * @return progress position
+	 */
 	public int progressNow() {
 		progressNow++;
-		debugLog("progressNow" + progressNow);
 		return progressNow;
 		// TODO progressNow in Stopwatch method stub Auto-generated BuYn30 џэт. 2016 у.7:43:41 
 	}

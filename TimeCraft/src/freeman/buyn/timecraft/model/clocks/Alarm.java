@@ -6,63 +6,90 @@ package freeman.buyn.timecraft.model.clocks;
  * 
  */
 public class Alarm extends Timer {
-    private long    lAlarmSetMillSec   = 0;
-    public static final int DEFAULT_ALARM_SET = 9;
+	public static final int DEFAULT_ALARM_SET = 9;
+	
+    private long alarmSetoffTime= 0;
+    private long alarmSetting;   
 	/*
 	 * Initialization Methods Block
 	 */
     /**
-     * Null constructir use defalt setingd from DEFAULT_ALARM_SET
+     * Null constructor use default settings from DEFAULT_ALARM_SET
      */
     public Alarm(){
     	this(DEFAULT_ALARM_SET);
     }   
     /**
-     * Constructor set parametr minut to set alarm
-     * @param iMinuts minuts to set alarm
+     * Constructor set parameter minutes to set alarm
+     * @param iMinuts minutes to set alarm
      */
     public Alarm(int iMinuts) {
     	super();
-        lAlarmSetMillSec = super.getStart() + (iMinuts * MINUTS);
+    	alarmSetting = (iMinuts * MINUTS);
+    	setAlarmTime();
     }
 	/*
 	 * Private Methods Block
 	 */
-    private int formatToMinuts(long timeInMillSec) {
-		return (int) ((timeInMillSec/SECUNDS)/MINUTS);
+    final private int formatToMinuts(long timeInMillSec) {
+		return (int) (timeInMillSec/MINUTS);
     }
 	/*
 	 * Public Methods Block
-	 */
+	 */ 
+    /**
+     * use parent @see freeman.buyn.timecraft.model.clocks.Timer#setStartToZero() and calculate new setoff time
+     * 
+     */
+    @Override
+    final public void setStartToZero() {
+        super.setStartToZero();
+        setAlarmTime();
+    }
+    /**
+     * setoff time minus now in milliseconds
+     * @return milliseconds left
+     */
     final public long getTimeLeft(){
-        return lAlarmSetMillSec - super.getNow();
+        return alarmSetoffTime - super.getNow();
     }
+     /**
+     * setoff time minus now in seconds
+     * @return seconds left
+     */
     final public long getSekundsLeft(){
-        return (lAlarmSetMillSec - super.getNow())/SECUNDS;
+        return (alarmSetoffTime - super.getNow())/SECONDS;
     }
+     /**
+     * setoff time minus now in milliseconds formate too string 
+     * @return milliseconds left formate too string 
+     */
     final public String getFormatTimeLeft(){
         return formatLong(getTimeLeft());
     }
-    final public boolean isAlarm() {
-    	return getTimeLeft()<=0;
-	}
-    final public void setAlarm() {
-        lAlarmSetMillSec = getNow() + lAlarmSetMillSec;
+    /**
+     * setoff time it time of start plus alarm set time 
+     */
+    final public void setAlarmTime() {
+        alarmSetoffTime = super.getStart() + alarmSetting;
     }
     /*
 	 * Setter/getter block
 	 */
-
+   
+    final public boolean isAlarm() {
+    	return getTimeLeft()<=0;
+	}
     final public void setAlarmMinuts(int iMinuts) {
-        lAlarmSetMillSec = getNow() + (iMinuts * MINUTS);
+    	alarmSetting = (iMinuts * MINUTS);
     }
     final public void setAlarmSecunds(int secunds) {
-        lAlarmSetMillSec = getNow() + (secunds * SECUNDS);
+    	alarmSetting = (secunds * SECONDS);
     }
-    final public int getAlarmMinuts() {
-        return formatToMinuts(lAlarmSetMillSec);
+    final public int getAlarmMinutsSetting() {
+        return formatToMinuts(alarmSetting);
     }
-		public long getAlarm() {
-        return lAlarmSetMillSec;
+	public long getAlarmTime() {
+        return alarmSetoffTime;
     }
 }
