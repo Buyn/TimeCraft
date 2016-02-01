@@ -7,7 +7,7 @@ package freeman.buyn.timecraft.model.clocks;
  */
 public class Alarm extends Timer {
 	public static final int DEFAULT_ALARM_SET = 9;
-	
+	public static final int DEFAULT_ALARM_SNOOZE = 1;
     private long alarmSetoffTime= 0;
     private long alarmSetting;   
 	/*
@@ -25,7 +25,7 @@ public class Alarm extends Timer {
      */
     public Alarm(int iMinuts) {
     	super();
-    	alarmSetting = (iMinuts * MINUTS);
+    	setAlarmMinuts(iMinuts);
     	setAlarmTime();
     }
 	/*
@@ -73,10 +73,20 @@ public class Alarm extends Timer {
     final public void setAlarmTime() {
         alarmSetoffTime = super.getStart() + alarmSetting;
     }
+    /**
+     * setoff time it time of start plus alarm set time 
+     */
+    final public void setAlarmTime(int minuts) {
+        alarmSetoffTime = super.getStart() + minuts*MINUTS;
+    }
+    final public void snooze() {
+    	setAlarmMinuts(DEFAULT_ALARM_SNOOZE);
+    	setStartToZero();
+		// TODO snooze in Alarm method stub Auto-generated BuYn1 февр. 2016 г.1:20:10 
+	}
     /*
 	 * Setter/getter block
-	 */
-   
+	 */  
     final public boolean isAlarm() {
     	return getTimeLeft()<=0;
 	}
@@ -92,4 +102,5 @@ public class Alarm extends Timer {
 	public long getAlarmTime() {
         return alarmSetoffTime;
     }
+
 }

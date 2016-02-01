@@ -17,10 +17,11 @@ import javafx.concurrent.Task;
  *
  */
 public class AlarmClock extends Alarm implements Runnable{
+	
 	private AlarmStopwatchController alarmStopwatchController;
     private String labelTime;
     private String labelText = "Alarm: ";
-    private int minutsFromSetoff =0;
+    private int snoozeCounter =0;
     private long progressMax;
     private long progressNow;
     //using AtomicBoolean to be shuer that object link, will not change. used to sinchronize same object
@@ -90,7 +91,7 @@ public class AlarmClock extends Alarm implements Runnable{
 	* @param newAlarmStopwatchController
 	*/
 	public AlarmClock(AlarmStopwatchController newAlarmStopwatchController) {
-		super(1);
+		super(3);
 		this.alarmStopwatchController = newAlarmStopwatchController;
 		alarmStopwatchController.alarmLabel.textProperty().bind(labelTextTask.messageProperty());
 		setStartToZero();
@@ -111,9 +112,13 @@ public class AlarmClock extends Alarm implements Runnable{
 	@Override
 	public void run() {
         while (!shutdown) {
-           if (!pause) runUpdate();
-           try {
-        	   Thread.sleep(Timer.SECONDS);}catch (InterruptedException ex) {Thread.currentThread().interrupt();}
+           if (!pause) {
+        	   if(isAlarm())setoffAlarm();
+        	   runUpdate();
+           }
+           try {Thread.sleep(Timer.SECONDS);}
+           catch (InterruptedException ex) {
+        	   Thread.currentThread().interrupt();}
         }
         debugLog("shuting downs AlarmClock");
         labelTextTask.cancel(true);
@@ -121,6 +126,7 @@ public class AlarmClock extends Alarm implements Runnable{
         debugLog("AlarmClock end");      
 		// TODO run in AlarmClock method stub Auto-generated BuYn23 ÿםג. 2016 ד.23:54:03 
 	}
+
 	/*
 	* Private Methods Block
 	*/
@@ -131,6 +137,12 @@ public class AlarmClock extends Alarm implements Runnable{
             }
         });
 		 
+	}
+		private void setoffAlarm() {
+		//sound
+		super.snooze();
+		snoozeCounter++;
+		// TODO setoffAlarm in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.0:22:40 
 	}
 	/*
 	 * Public Methods Block
@@ -171,7 +183,7 @@ public class AlarmClock extends Alarm implements Runnable{
 	 */
 	public void resetAlarmClock(){
     	setStartToZero();
-    	minutsFromSetoff = 0;
+    	snoozeCounter = 0;
     	progressMax = getTimeLeft();
     	progressNow = 0;
     	unpauseAlarmClock();
@@ -181,9 +193,9 @@ public class AlarmClock extends Alarm implements Runnable{
 	 * Set actual time and progress position 
 	 * say to Worker to stop waiting  
 	 */
-	public void runUpdate() {
-		labelTime = getFormatTimeLeft();
-		progressNow = progressNow();
+	public void runUpdate() {		
+		updateText();
+		updateProgress();		
         synchronized (labelTextIsChanged) {
         	labelTextIsChanged.set(true);
         	labelTextIsChanged.notifyAll();
@@ -193,9 +205,18 @@ public class AlarmClock extends Alarm implements Runnable{
 	 * Calculate new progress position
 	 * @return progress position
 	 */
-	public Long progressNow() {
-		return progressMax - getTimeLeft();
-		// TODO progressNow in AlarmClock method stub Auto-generated BuYn30 ÿםג. 2016 ד.7:43:41 
+	private void updateProgress() {
+		progressNow = progressMax - getTimeLeft();
+		// TODO updateProgress in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.1:00:13 
+	}	
+	/**
+	 * New text whith actual time for time Label 
+	 */
+	private void updateText() {
+		labelTime = getFormatTimeLeft();
+		if(snoozeCounter == 0)labelTime = labelTime + " ";
+		else labelTime = labelTime + " (" + snoozeCounter + ")";
+		// TODO updateText in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.1:00:09 
 	}
 	/*
 	 * Setter/getter block
