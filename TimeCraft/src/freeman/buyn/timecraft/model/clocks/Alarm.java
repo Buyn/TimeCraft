@@ -25,7 +25,7 @@ public class Alarm extends Timer {
      */
     public Alarm(int iMinuts) {
     	super();
-    	setAlarmMinuts(iMinuts);
+    	setAlarmSetingMinuts(iMinuts);
     	setAlarmTime();
     }
 	/*
@@ -80,8 +80,8 @@ public class Alarm extends Timer {
         alarmSetoffTime = super.getStart() + minuts*MINUTS;
     }
     final public void snooze() {
-    	setAlarmMinuts(DEFAULT_ALARM_SNOOZE);
-    	setStartToZero();
+    	super.setStartToZero();
+    	setAlarmTime(DEFAULT_ALARM_SNOOZE);
 		// TODO snooze in Alarm method stub Auto-generated BuYn1 февр. 2016 г.1:20:10 
 	}
     /*
@@ -90,10 +90,10 @@ public class Alarm extends Timer {
     final public boolean isAlarm() {
     	return getTimeLeft()<=0;
 	}
-    final public void setAlarmMinuts(int iMinuts) {
+    final public void setAlarmSetingMinuts(int iMinuts) {
     	alarmSetting = (iMinuts * MINUTS);
     }
-    final public void setAlarmSecunds(int secunds) {
+    final public void setAlarmSetingSecunds(int secunds) {
     	alarmSetting = (secunds * SECONDS);
     }
     final public int getAlarmMinutsSetting() {

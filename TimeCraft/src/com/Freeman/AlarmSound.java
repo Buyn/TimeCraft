@@ -10,7 +10,7 @@ import java.net.URL;
  * Created by BuYn on 08.01.2015.
  */
 public class AlarmSound implements Runnable {
-    //String sFileUrl = "/alarm.wav";
+    //String DEFULT_FILE_PATH_ALARM = "/alarm.wav";
     String sFileUrl = "alarm.wav";
     String sJarUrl = "/Res/alarm.wav";
 //    String sJarUrl = "/com/Freeman/alarm.wav";

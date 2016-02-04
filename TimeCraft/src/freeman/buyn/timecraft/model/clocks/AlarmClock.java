@@ -6,6 +6,7 @@ package freeman.buyn.timecraft.model.clocks;
 import static freeman.buyn.timecraft.util.DebugMsg.debugLog;
 import java.util.concurrent.atomic.AtomicBoolean;
 import freeman.buyn.timecraft.model.clocks.Alarm;
+import freeman.buyn.timecraft.model.clocks.AlarmSound;
 import freeman.buyn.timecraft.view.AlarmStopwatchController;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -27,6 +28,7 @@ public class AlarmClock extends Alarm implements Runnable{
     //using AtomicBoolean to be shuer that object link, will not change. used to sinchronize same object
     private final AtomicBoolean labelTextIsChanged = new AtomicBoolean(true);
     private boolean shutdown =false;
+	AlarmSound alarmSound;
     /**
      * Workers for Time label of controller binding updated messages 	
      */
@@ -91,7 +93,7 @@ public class AlarmClock extends Alarm implements Runnable{
 	* @param newAlarmStopwatchController
 	*/
 	public AlarmClock(AlarmStopwatchController newAlarmStopwatchController) {
-		super(3);
+		super(1);
 		this.alarmStopwatchController = newAlarmStopwatchController;
 		alarmStopwatchController.alarmLabel.textProperty().bind(labelTextTask.messageProperty());
 		setStartToZero();
@@ -103,6 +105,8 @@ public class AlarmClock extends Alarm implements Runnable{
 		progressThread.setDaemon(true);
 		progressThread.start();
 		resetAlarmClock();
+		//init Sound
+		alarmSound = new AlarmSound();
 	}
 	/**
 	 * waking up in each secund to run Update 
@@ -123,6 +127,7 @@ public class AlarmClock extends Alarm implements Runnable{
         debugLog("shuting downs AlarmClock");
         labelTextTask.cancel(true);
         progressTask.cancel(true);
+        alarmSound.end();
         debugLog("AlarmClock end");      
 		// TODO run in AlarmClock method stub Auto-generated BuYn23 ÿםג. 2016 ד.23:54:03 
 	}
@@ -138,11 +143,17 @@ public class AlarmClock extends Alarm implements Runnable{
         });
 		 
 	}
-		private void setoffAlarm() {
+	private void setoffAlarm() {
 		//sound
+		playSound();
 		super.snooze();
 		snoozeCounter++;
 		// TODO setoffAlarm in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.0:22:40 
+	}
+	private void playSound() {
+		if(snoozeCounter==0) alarmSound.playAlarm();
+		else alarmSound.playSnooze();
+		// TODO playSound in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.11:18:02 
 	}
 	/*
 	 * Public Methods Block
@@ -232,6 +243,11 @@ public class AlarmClock extends Alarm implements Runnable{
 	}
 	public void setLabelText(String labelText) {
 		this.labelText = labelText;
+	}
+	public void Debug() {
+		setAlarmSetingSecunds(10);
+		playSound();
+		// TODO Debug in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.10:19:43 
 	}
 
 }

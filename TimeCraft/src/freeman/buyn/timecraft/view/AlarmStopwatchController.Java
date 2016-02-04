@@ -82,7 +82,7 @@ public class AlarmStopwatchController implements FXmlControler{
 	}
 	@FXML
 	public void handleRighteExtendButton() {
-		stopwatch.progressNow();
+		alarmClock.Debug();
 		debugLog("log Massage :" + " handleRighteExtendButton");
 		// TODO handleRighteExtendButton in AlarmStopwatchController method stub Auto-generated BuYn24 џэт. 2016 у.7:37:41 
 	}
@@ -100,7 +100,7 @@ public class AlarmStopwatchController implements FXmlControler{
 	}
 	public void shutdown() {
 		stopwatch.shutdown();
-		
+		alarmClock.shutdown();
 		debugLog("log Massage :" + "AlarmStopwatch Close");
 		//TODO handle in Class on open threads       22:09:56 29 џэт. 2016 у. by BuYn
 	}
