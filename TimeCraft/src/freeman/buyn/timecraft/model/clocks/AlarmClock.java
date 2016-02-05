@@ -108,8 +108,8 @@ public class AlarmClock extends Alarm implements Runnable{
 		alarmSound = new AlarmSound();
 	}
 	/**
-	 * waking up in each second to run Update 
-	 * in shutting  - canceling workers
+	 * waking up in each second to run graphic Updates.
+	 * On shutting  - canceling running workers threads
 	* @see java.lang.Runnable#run()
 	*/
 	@Override
@@ -128,12 +128,18 @@ public class AlarmClock extends Alarm implements Runnable{
         progressTask.cancel(true);
         alarmSound.end();
         debugLog("AlarmClock end");      
-		// TODO run in AlarmClock method stub Auto-generated BuYn23 ÿםג. 2016 ד.23:54:03 
 	}
 
 	/*
 	* Private Methods Block
 	*/
+	
+	/**
+	 * Set new Text to alarm controlling button 
+	 * can be used from not fx thread
+	 * 
+	 * @param newText new Text for alarm button  
+	 */
 	private void setTextToButton(String newText) {   
 		 Platform.runLater(new Runnable() {
             @Override public void run() {
@@ -142,17 +148,23 @@ public class AlarmClock extends Alarm implements Runnable{
         });
 		 
 	}
+	/**
+	 * Setting off Alarm! Playing sound and snooze timer. 
+	 * Additional counting number of snoozers times from first settoff
+	 */
 	private void setoffAlarm() {
-		//sound
 		playSound();
 		super.snooze();
 		snoozeCounter++;
-		// TODO setoffAlarm in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.0:22:40 
 	}
+	/**
+	 * Decide on variable, snoozeCounter number, witch sound to play. 
+	 * And say Alarm sound object to play it
+	 * 
+	 */
 	private void playSound() {
 		if(snoozeCounter==0) alarmSound.playAlarm();
 		else alarmSound.playSnooze();
-		// TODO playSound in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.11:18:02 
 	}
 	/*
 	 * Public Methods Block
@@ -172,7 +184,7 @@ public class AlarmClock extends Alarm implements Runnable{
         setTextToButton("Pause Alarm");
 	}
 	/**
-	 * trigger of Pause state 
+	 * trigger of Pause state of Alarm
 	 */
 	public void triggerAlarmClock() {
         if (pause) {
@@ -189,7 +201,7 @@ public class AlarmClock extends Alarm implements Runnable{
 	}
 	/**
 	 * AlarmClock reset starting time point to now
-	 * delta time now Zero
+	 * delta time now Zero. Update progress calculations and  snooze Counter
 	 */
 	public void resetAlarmClock(){
     	setStartToZero();
@@ -217,16 +229,14 @@ public class AlarmClock extends Alarm implements Runnable{
 	 */
 	private void updateProgress() {
 		progressNow = progressMax - getTimeLeft();
-		// TODO updateProgress in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.1:00:13 
 	}	
 	/**
-	 * New text whith actual time for time Label 
+	 * New text with actual time for time Label 
 	 */
 	private void updateText() {
 		labelTime = getFormatTimeLeft();
 		if(snoozeCounter == 0)labelTime = labelTime + " ";
 		else labelTime = labelTime + " (" + snoozeCounter + ")";
-		// TODO updateText in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.1:00:09 
 	}
 	/*
 	 * Setter/getter block
