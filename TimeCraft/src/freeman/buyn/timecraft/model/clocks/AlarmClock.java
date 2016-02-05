@@ -25,10 +25,10 @@ public class AlarmClock extends Alarm implements Runnable{
     private int snoozeCounter =0;
     private long progressMax;
     private long progressNow;
-    //using AtomicBoolean to be shuer that object link, will not change. used to sinchronize same object
+    //using AtomicBoolean to be suer that object link, will not change. used to synchronize same theads
     private final AtomicBoolean labelTextIsChanged = new AtomicBoolean(true);
     private boolean shutdown =false;
-	AlarmSound alarmSound;
+    private AlarmSound alarmSound;
     /**
      * Workers for Time label of controller binding updated messages 	
      */
@@ -78,7 +78,6 @@ public class AlarmClock extends Alarm implements Runnable{
 			}
     		debugLog("progressTask Stopt");
     		return 0;
-			// TODO call in Type1454128004039 method stub Auto-generated BuYn30 ÿםג. 2016 ד.6:26:44 
 		}
 	}; 
 
@@ -89,11 +88,11 @@ public class AlarmClock extends Alarm implements Runnable{
 	/**
 	 * on start binding label and  progress 
 	 * and start workers who updates binds
-	 * seting up timer
+	 * Setting up timer
 	* @param newAlarmStopwatchController
 	*/
 	public AlarmClock(AlarmStopwatchController newAlarmStopwatchController) {
-		super(1);
+		super(9);
 		this.alarmStopwatchController = newAlarmStopwatchController;
 		alarmStopwatchController.alarmLabel.textProperty().bind(labelTextTask.messageProperty());
 		setStartToZero();
@@ -105,11 +104,11 @@ public class AlarmClock extends Alarm implements Runnable{
 		progressThread.setDaemon(true);
 		progressThread.start();
 		resetAlarmClock();
-		//init Sound
+		//init Sound Alarms audio Fills in Sounds threads
 		alarmSound = new AlarmSound();
 	}
 	/**
-	 * waking up in each secund to run Update 
+	 * waking up in each second to run Update 
 	 * in shutting  - canceling workers
 	* @see java.lang.Runnable#run()
 	*/
@@ -243,11 +242,6 @@ public class AlarmClock extends Alarm implements Runnable{
 	}
 	public void setLabelText(String labelText) {
 		this.labelText = labelText;
-	}
-	public void Debug() {
-		setAlarmSetingSecunds(10);
-		playSound();
-		// TODO Debug in AlarmClock method stub Auto-generated BuYn1 פוגנ. 2016 ד.10:19:43 
 	}
 
 }

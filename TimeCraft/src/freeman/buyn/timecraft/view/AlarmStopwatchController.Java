@@ -77,25 +77,21 @@ public class AlarmStopwatchController implements FXmlControler{
 		alarmClock.resetAlarmClock();
 		stopwatch.unpauseStopWatch();
 		alarmClock.unpauseAlarmClock();
-		debugLog("log Massage :" + " handleResetAllButton");
 		// TODO hahdleResetAllButton in AlarmStopwatchController method stub Auto-generated BuYn24 џэт. 2016 у.7:31:56 
 	}
 	@FXML
 	public void handleRighteExtendButton() {
-		alarmClock.Debug();
 		debugLog("log Massage :" + " handleRighteExtendButton");
 		// TODO handleRighteExtendButton in AlarmStopwatchController method stub Auto-generated BuYn24 џэт. 2016 у.7:37:41 
 	}
 	@FXML
 	public void handleStopwatchButton() {
-		debugLog("log Massage :" + " handleStopwatchButton");
 		stopwatch.triggerStopWatch();		
 		// TODO save value to disk as backup.xml file BuYn24 џэт. 2016 у.7:37:47 
 	}
 	@FXML
 	public void handleAlarmlButton() {
 		alarmClock.triggerAlarmClock();
-		debugLog("log Massage :" + " handleAlarmlButton");		
 		// TODO in handleAlarmlButton add save too beck up in AlarmStopwatchController method stub Auto-generated BuYn24 џэт. 2016 у.7:37:52 
 	}
 	public void shutdown() {

@@ -1,8 +1,8 @@
 package freeman.buyn.timecraft.model.clocks;
 
 /**
- * extend timer fuction for implement
- * seting alarm
+ * extend timer functions for implement
+ * to Setting alarm
  * 
  */
 public class Alarm extends Timer {
