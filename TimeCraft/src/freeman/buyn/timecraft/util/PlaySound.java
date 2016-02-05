@@ -13,6 +13,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -43,15 +44,25 @@ public class PlaySound implements Runnable {
 		debugLog("log Massage :" + " task PlaySound is End");
     }	
 
-	public PlaySound(File FilePath) {
+	/**
+	 * Creating clip object to play sound file
+	 * On directly from clip constructor
+	 * Because is not working in some Linux OS
+	 * 
+	 * @param fileToPlay file To be Played in clip object 
+	 */
+	public PlaySound(File fileToPlay) {
 		try {
-			soundClip = AudioSystem.getClip();
-			debugLog(FilePath.getAbsolutePath() + " ");
-			soundClip.open(AudioSystem.getAudioInputStream(FilePath));
+			debugLog(fileToPlay.getAbsolutePath() + " ");
+			AudioInputStream audioStream = AudioSystem.getAudioInputStream(fileToPlay);
+			DataLine.Info lineFormat = new DataLine.Info(Clip.class, audioStream.getFormat());
+			soundClip = (Clip) AudioSystem.getLine(lineFormat);
+			soundClip.open(audioStream);
 		}catch (LineUnavailableException e){			
-			debugInfo("Info Massage :" + "LineUnavailableException in  ");
+			debugInfo("Info Massage :" + "LineUnavailableException in  PlaySound");
 			e.printStackTrace();
 		}catch (UnsupportedAudioFileException e){
+			debugInfo("Info Massage :" + "UnsupportedAudioFileException in PlaySound");
 			e.printStackTrace();
 		}catch (IOException e) {
 			System.err.println(e.getMessage());
@@ -65,13 +76,12 @@ public class PlaySound implements Runnable {
     	soundClip.setMicrosecondPosition(0);
     	soundClip.start();
     	try {
-    		debugLog("sleep for " + soundClip.getMicrosecondLength()/freeman.buyn.timecraft.model.clocks.Timer.SECONDS+100);
     		Thread.sleep(soundClip.getMicrosecondLength()/freeman.buyn.timecraft.model.clocks.Timer.SECONDS +100);    		
     		//just in case if clip not ended
     		while(soundClip.isRunning()){
+    			debugInfo("soundClip.isRunning()");
     			debugLog("sleep for " + 700);
     			Thread.sleep(700);
-    			debugInfo("soundClip.isRunning()");
     		} 
     	} catch (InterruptedException e) {
     		debugLog("log Massage :" + "soundClip sleep is interrupted ");
