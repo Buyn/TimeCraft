@@ -5,11 +5,9 @@ package freeman.buyn.timecraft.util;
 
 import static freeman.buyn.timecraft.util.DebugMsg.debugInfo;
 import static freeman.buyn.timecraft.util.DebugMsg.debugLog;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -18,6 +16,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
+ * Loading audio file in memory and waiting for command to play it
+ * or command for self cleaning and ending
+ * if interrupted when playing sound, is Paulese the playing 
  * @author BuYn
  *
  */
@@ -43,7 +44,6 @@ public class PlaySound implements Runnable {
 		}
 		debugLog("log Massage :" + " task PlaySound is End");
     }	
-
 	/**
 	 * Creating clip object to play sound file
 	 * On directly from clip constructor
@@ -67,12 +67,18 @@ public class PlaySound implements Runnable {
 		}catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
-		// TODO constructor PlaySound stub Auto-generated BuYn1 февр. 2016 г.19:02:15
 	}
 	/*
 	 * Private Methods Block
 	 */
-    public void runSound(){
+		/*
+	 * Public Methods Block
+	 */
+	/**
+	 * Call from run circle, and start play from began
+	 * 
+	 */
+	public void runSound(){
     	soundClip.setMicrosecondPosition(0);
     	soundClip.start();
     	try {
@@ -95,7 +101,10 @@ public class PlaySound implements Runnable {
 			playSound.notifyAll();
 		}
 	}
-
+	/**
+	 * Stop main cikle end close open clip
+	 * 
+	 */
 	public void end() {
 		cancellad = true;
 		synchronized (playSound) {
@@ -103,15 +112,11 @@ public class PlaySound implements Runnable {
 			playSound.notifyAll();
 		}		
 		debugLog("soundClip close");
-		// TODO end in PlaySound method stub Auto-generated BuYn1 февр. 2016 г.19:53:04 
 	}
-		
-	/*
-	 * Public Methods Block
-	 */
-
 	/*
 	 * Setter/getter block
 	 */
-
+	public boolean isPlaying() {
+	return soundClip.isRunning();
+	}
 }
