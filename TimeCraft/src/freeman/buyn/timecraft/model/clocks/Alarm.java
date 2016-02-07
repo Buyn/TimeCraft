@@ -78,11 +78,14 @@ public class Alarm extends Timer {
      */
     final public void setAlarmTime(int minuts) {
         alarmSetoffTime = super.getStart() + minuts*MINUTS;
-    }
+    }    
+    /**
+     * Snooze Alarm - set alarm to small time 
+     * get setting not from alarm set 
+     */
     final public void snooze() {
     	super.setStartToZero();
     	setAlarmTime(DEFAULT_ALARM_SNOOZE);
-		// TODO snooze in Alarm method stub Auto-generated BuYn1 февр. 2016 г.1:20:10 
 	}
     /*
 	 * Setter/getter block

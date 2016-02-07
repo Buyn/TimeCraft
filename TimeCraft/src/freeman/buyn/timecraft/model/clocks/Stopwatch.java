@@ -98,7 +98,7 @@ public class Stopwatch extends Timer implements Runnable {
 		Thread progressIndicatorThread = new Thread(progressIndicatorTask);
 		progressIndicatorThread.setDaemon(true);
 		progressIndicatorThread.start();
-		progressMax = 100;
+		progressMax = 1500;
 		runUpdate();
 		// TODO constructor Stopwatch stub Auto-generated BuYn25 џэт. 2016 у.3:39:03
 	}
@@ -139,7 +139,7 @@ public class Stopwatch extends Timer implements Runnable {
 	 * Pause timer and set text to button 
 	 */
 	public void pauseStopWatch() {		
-        setTextToButton("Start Stopwatch");
+        setTextToButton("Start Watches");
         setPause();
 	}
 
@@ -148,7 +148,7 @@ public class Stopwatch extends Timer implements Runnable {
 	 */
 	public void unpauseStopWatch() {
         unPause();
-        setTextToButton("Pause Stopwatch");
+        setTextToButton("Pause Watches");
 	}
 	/**
 	 * trigger of Pause state 

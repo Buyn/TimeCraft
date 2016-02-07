@@ -8,6 +8,11 @@
     -fx-text-fill: white;
     -fx-opacity: 0.6;
 }
+.button-extend {
+    -fx-font-size: 12pt;
+    -fx-text-fill: white;
+    -fx-padding: 0px ;    
+}
 
 .label-bright {
     -fx-font-size: 11pt;
@@ -22,6 +27,15 @@
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
+.progress-indicator {
+    -fx-opacity: 1;
+}
+.progress-indicator .percentage {
+    -fx-font-size: 6pt;/*0.916667em;  11pt - 1 less than the default font */
+    -fx-text-fill: white;
+    -fx-fill: white
+}
+
 
 .table-view {
     -fx-base: #1d1d1d;

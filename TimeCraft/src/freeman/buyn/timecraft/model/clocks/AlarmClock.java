@@ -181,7 +181,7 @@ public class AlarmClock extends Alarm implements Runnable{
 	 */
 	public void unpauseAlarmClock() {
         unPause();
-        setTextToButton("Pause Alarm");
+        setTextToButton("Stop Alarm");
 	}
 	/**
 	 * trigger of Pause state of Alarm

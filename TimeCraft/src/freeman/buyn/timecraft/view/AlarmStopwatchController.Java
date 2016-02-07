@@ -17,7 +17,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 
 /**
- * Controler for for AlarmStopwatchController.fxml
+ * Controler for for AlarmStopwatch.fxml
  * @author BuYn
  *
  */
