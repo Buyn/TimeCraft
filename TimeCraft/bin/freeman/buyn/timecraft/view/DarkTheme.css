@@ -30,12 +30,21 @@
 .progress-indicator {
     -fx-opacity: 1;
 }
+.hiperlink {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: blue;
+}
 .progress-indicator .percentage {
     -fx-font-size: 6pt;/*0.916667em;  11pt - 1 less than the default font */
     -fx-text-fill: white;
     -fx-fill: white
 }
 
+.hidet {
+	-fx-base: #ffffff;
+	-fx-opacity: 1;
+}
 
 .table-view {
     -fx-base: #1d1d1d;

@@ -59,8 +59,7 @@ public class AlarmSound {
 	 */
 	public void playSnooze() {
 		snoozeSound.startAutio();
-	}
-	
+	}	
 	/**
 	 * Cleaning up opened threads
 	 * 

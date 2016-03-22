@@ -5,9 +5,12 @@ package freeman.buyn.timecraft.view;
 
 import static freeman.buyn.timecraft.util.DebugMsg.debugLog;
 
+import com.sun.org.apache.bcel.internal.generic.IFNULL;
+
 import freeman.buyn.timecraft.model.FXmlControler;
 import freeman.buyn.timecraft.model.Person;
 import freeman.buyn.timecraft.model.clocks.AlarmClock;
+import freeman.buyn.timecraft.model.clocks.ExtendPanel;
 import freeman.buyn.timecraft.model.clocks.Stopwatch;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -15,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.layout.BorderPane;
 
 /**
  * Controler for for AlarmStopwatch.fxml
@@ -37,10 +41,14 @@ public class AlarmStopwatchController implements FXmlControler{
 	public Button timeButton;
 	@FXML
 	public Button alarmButton;
+	@FXML
+	public BorderPane mainBorderPanel;
 	//global Integers
 	public Person selectedActivitiData;	
 	private Stopwatch stopwatch;
 	private AlarmClock alarmClock;
+	private ExtendPanel extendPanel;
+	
 
 	/*
 	 * Initialization Methods Block
@@ -81,6 +89,9 @@ public class AlarmStopwatchController implements FXmlControler{
 	}
 	@FXML
 	public void handleRighteExtendButton() {
+		if (extendPanel == null) {
+			extendPanel = new ExtendPanel(this); 
+		}
 		debugLog("log Massage :" + " handleRighteExtendButton");
 		// TODO handleRighteExtendButton in AlarmStopwatchController method stub Auto-generated BuYn24 џэт. 2016 у.7:37:41 
 	}
