@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -33,7 +34,7 @@
             </AnchorPane>
          </bottom>
          <top>
-            <Button mnemonicParsing="false" onAction="#handleResetAllButton" prefHeight="40.0" prefWidth="400.0" text="Reset All" BorderPane.alignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#handleResetAllButton" prefHeight="40.0" prefWidth="1000.0" text="Reset All" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="1.0" BorderPane.alignment="CENTER">
@@ -44,8 +45,21 @@
                         <ProgressIndicator fx:id="timeProgressIndicator" layoutY="20.0" mouseTransparent="true" prefHeight="39.0" prefWidth="55.0" progress="1.0" styleClass="progress-indicator" AnchorPane.rightAnchor="5.0" />
                      </children>
                   </AnchorPane>
-                  <ProgressBar fx:id="alrmProgressBar" prefHeight="18.0" prefWidth="400.0" progress="0.0" />
-                  <Label fx:id="alarmLabel" prefHeight="17.0" prefWidth="185.0" styleClass="background" text="Alarm: 00:00:00 (0)" />
+                  <ProgressBar fx:id="alrmProgressBar" prefHeight="18.0" prefWidth="1000.0" progress="0.0" />
+                  <HBox prefHeight="100.0" prefWidth="1000.0">
+                     <children>
+                        <Label fx:id="alarmLabel" prefHeight="21.0" prefWidth="145.0" styleClass="background" text="Alarm: 00:00:00 (0)" />
+                        <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                           <children>
+                              <Label fx:id="alarmSetLabel" onContextMenuRequested="#handleAlarmlSetRightClik" onMouseClicked="#handleAlarmlSetLeftClik" text="03m" textFill="#020ff7" underline="true" />
+                              <Label text="09m" textFill="#020ff7" underline="true" />
+                              <Label text="15m" textFill="#020ff7" underline="true" />
+                              <Label text="30m" textFill="#020ff7" underline="true" />
+                              <Label text="60m" textFill="#020ff7" underline="true" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </center>
