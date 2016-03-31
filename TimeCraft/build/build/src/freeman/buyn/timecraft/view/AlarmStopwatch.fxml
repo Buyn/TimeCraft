@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="150.0" prefWidth="300.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="freeman.buyn.timecraft.view.AlarmStopwatchController">
+   <children>
+      <BorderPane fx:id="mainBorderPanel" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <AnchorPane prefHeight="35.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox prefHeight="35.0" prefWidth="300.0" spacing="3.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="48.0">
+                     <children>
+                        <Button fx:id="timeButton" mnemonicParsing="false" onAction="#handleStopwatchButton" prefHeight="40.0" prefWidth="300.0" text="Pause Watches" />
+                        <Button fx:id="alarmButton" mnemonicParsing="false" onAction="#handleAlarmlButton" prefHeight="40.0" prefWidth="300.0" text="Stop Alarm">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <Button alignment="TOP_LEFT" ellipsisString="&gt;&gt;&#10;&gt;&gt;" mnemonicParsing="false" onAction="#handleRighteExtendButton" prefHeight="50.0" prefWidth="47.0" style="-fx-padding: 0;" styleClass="button-extend" text="&gt;&gt;&#10;&gt;&gt;" AnchorPane.bottomAnchor="-5.0" AnchorPane.rightAnchor="-25.0">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <top>
+            <Button mnemonicParsing="false" onAction="#handleResetAllButton" prefHeight="40.0" prefWidth="1000.0" text="Reset All" BorderPane.alignment="CENTER" />
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="1.0" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="timeLabel" prefHeight="50.0" prefWidth="330.0" style="-fx-padding: 0;" styleClass="label-header" text="Time: 00:00:00" AnchorPane.leftAnchor="0.0" />
+                        <ProgressIndicator fx:id="timeProgressIndicator" layoutY="20.0" mouseTransparent="true" prefHeight="39.0" prefWidth="55.0" progress="1.0" styleClass="progress-indicator" AnchorPane.rightAnchor="5.0" />
+                     </children>
+                  </AnchorPane>
+                  <ProgressBar fx:id="alrmProgressBar" prefHeight="18.0" prefWidth="1000.0" progress="0.0" />
+                  <HBox prefHeight="100.0" prefWidth="1000.0">
+                     <children>
+                        <Label fx:id="alarmLabel" prefHeight="21.0" prefWidth="145.0" styleClass="background" text="Alarm: 00:00:00 (0)" />
+                        <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                           <children>
+                              <Label fx:id="alarmSetLabel" onContextMenuRequested="#handleAlarmlSetRightClik" onMouseClicked="#handleAlarmlSetLeftClik" text="03m" textFill="#020ff7" underline="true" />
+                              <Label text="09m" textFill="#020ff7" underline="true" />
+                              <Label text="15m" textFill="#020ff7" underline="true" />
+                              <Label text="30m" textFill="#020ff7" underline="true" />
+                              <Label text="60m" textFill="#020ff7" underline="true" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
