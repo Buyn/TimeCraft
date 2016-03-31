@@ -2,9 +2,9 @@ package freeman.buyn.timecraft;
 
 import static freeman.buyn.timecraft.util.DebugMsg.debugInfo;
 import static freeman.buyn.timecraft.util.DebugMsg.debugLog;
+
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.prefs.Preferences;
 import freeman.buyn.timecraft.model.FXmlControler;
 import freeman.buyn.timecraft.model.JAXBWrapper;
